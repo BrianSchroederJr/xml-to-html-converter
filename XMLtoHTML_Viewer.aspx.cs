@@ -139,9 +139,12 @@ namespace XMLtoHTML_Converter
 
 
 
-        // This method adds a single white space to the left of any capital letter that has a lowercase letter to the left of it
+        // This method adds white space to camel case strings
         private string AddSpaces(string camelCaseString)
         {
+            // The Regular Expression below does not match if the character to the left is the beginning of the line 
+            // AND using the Regex.Replace() puts a space to the left of the match for Capital Letters followed by a Lower Case Letter (this puts a space after 1 in Adam1Jane2)
+            // OR in front of a Capital Letter that has a Lower Case Letter next to the left of it.
             return Regex.Replace(camelCaseString, @"((?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z]))", " $1");
         }
 
